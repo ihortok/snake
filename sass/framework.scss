@@ -1,0 +1,26 @@
+/*===========================================
+   vars
+ ===========================================*/
+
+$blue_title: #1E90FF;
+$grey_border: #2F4F4F;
+$dimGrey_7: rgba(105, 105, 105, .7);
+$white_AliceBlue: #F0F8FF;
+$red_snake: #DC143C;
+$red_snakeHead: #8B0000;
+
+/*===========================================
+   mixins
+ ===========================================*/
+
+@mixin box-shadow($top, $left, $blur, $spread, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow: inset $top $left $blur $spread $color;
+    -moz-box-shadow: inset $top $left $blur $spread $color;
+    box-shadow: inset $top $left $blur $spread $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $spread $color;
+    -moz-box-shadow: $top $left $blur $spread $color;
+    box-shadow: $top $left $blur $spread $color;
+  }
+}

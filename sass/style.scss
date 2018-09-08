@@ -1,0 +1,68 @@
+/*===========================================
+   imports
+ ===========================================*/
+@import "framework.scss";
+
+/*===========================================
+   general
+ ===========================================*/
+
+body {
+  font-size: 16px;
+  font-family: Arial;
+}
+
+.wrapper{
+  max-width: 1320px;
+  margin: auto;
+}
+
+/*===========================================
+   header
+ ===========================================*/
+
+/*===========================================
+   main page
+ ===========================================*/
+
+.gameScreen {
+  &__title {
+    height: 2.5em;
+    background-color: $blue_title;
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 2.5em;
+    font-style: italic;
+  }
+  &__table {
+    border: 3px solid $dimGrey_7;
+  }
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(80, 1fr);
+  }
+  &__cell {
+    padding-bottom: 100%;
+    background: transparent;
+    outline: .1px solid $white_AliceBlue;
+    outline-offset: -.1px;
+    &.snake{
+      background-color: $red_snake;
+      &.snakeHead{
+        background-color: $red_snakeHead;
+      }
+    }
+  }
+}
+
+/*===========================================
+   footer
+ ===========================================*/
+
+/*===========================================
+   imports
+ ===========================================*/
+
+@import "mediaqueries.scss";
+
+/*==========================================*/
