@@ -35,16 +35,18 @@ body {
   border: 3px solid rgba(105, 105, 105, 0.7); }
 .gameScreen__row {
   display: grid;
-  grid-template-columns: repeat(80, 1fr); }
+  grid-template-columns: repeat(60, 1fr); }
 .gameScreen__cell {
   padding-bottom: 100%;
-  background: transparent;
   outline: 0.1px solid #F0F8FF;
-  outline-offset: -.1px; }
+  outline-offset: -.1px;
+  font-size: 7px; }
   .gameScreen__cell.snake {
     background-color: #DC143C; }
     .gameScreen__cell.snake.snakeHead {
       background-color: #8B0000; }
+  .gameScreen__cell.food {
+    background-color: #9cd220; }
 
 /*===========================================
    footer

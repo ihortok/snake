@@ -39,18 +39,21 @@ body {
   }
   &__row {
     display: grid;
-    grid-template-columns: repeat(80, 1fr);
+    grid-template-columns: repeat(60, 1fr);
   }
   &__cell {
     padding-bottom: 100%;
-    background: transparent;
     outline: .1px solid $white_AliceBlue;
     outline-offset: -.1px;
+    font-size: 7px;
     &.snake{
       background-color: $red_snake;
       &.snakeHead{
         background-color: $red_snakeHead;
       }
+    }
+    &.food{
+      background-color: #9cd220;
     }
   }
 }
