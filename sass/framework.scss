@@ -24,3 +24,22 @@ $red_snakeHead: #8B0000;
     box-shadow: $top $left $blur $spread $color;
   }
 }
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+/*===========================================
+   keyframes
+ ===========================================*/

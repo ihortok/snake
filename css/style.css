@@ -8,6 +8,9 @@
    mixins
  ===========================================*/
 /*===========================================
+   keyframes
+ ===========================================*/
+/*===========================================
    general
  ===========================================*/
 body {
@@ -18,11 +21,39 @@ body {
   max-width: 1320px;
   margin: auto; }
 
+@-webkit-keyframes food {
+  0% {
+    transform: scale(0.9); }
+  50% {
+    transform: scale(1.2); }
+  100% {
+    transform: scale(0.9); } }
+@-moz-keyframes food {
+  0% {
+    transform: scale(0.9); }
+  50% {
+    transform: scale(1.2); }
+  100% {
+    transform: scale(0.9); } }
+@-ms-keyframes food {
+  0% {
+    transform: scale(0.9); }
+  50% {
+    transform: scale(1.2); }
+  100% {
+    transform: scale(0.9); } }
+@keyframes food {
+  0% {
+    transform: scale(0.9); }
+  50% {
+    transform: scale(1.2); }
+  100% {
+    transform: scale(0.9); } }
 /*===========================================
    header
  ===========================================*/
 /*===========================================
-   main page
+   game screen
  ===========================================*/
 .gameScreen__title {
   height: 2.5em;
@@ -46,7 +77,37 @@ body {
     .gameScreen__cell.snake.snakeHead {
       background-color: #8B0000; }
   .gameScreen__cell.food {
-    background-color: #9cd220; }
+    background-color: #9cd220;
+    transform: scale(0.9);
+    -webkit-animation: food 2s infinite;
+    animation: food 2s infinite; }
+
+.buttonPanel {
+  margin-top: 1em;
+  text-align: center; }
+
+/*===========================================
+   aside
+ ===========================================*/
+.snakeLevel,
+.snakeLength {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .snakeLevel__title,
+  .snakeLength__title {
+    width: 100%;
+    text-align: center; }
+  .snakeLevel button,
+  .snakeLength button {
+    width: 30%; }
+  .snakeLevel input,
+  .snakeLength input {
+    width: 30%;
+    text-align: center; }
+
+.snakeLength input {
+  width: 100%; }
 
 /*===========================================
    footer

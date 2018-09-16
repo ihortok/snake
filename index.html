@@ -51,16 +51,26 @@
 
 
             </div>
-            <aside class="d-none d-md-block col-md-2"></aside>
+            <aside class="d-none d-md-block col-md-2">
+                <div class="snakeLevel">
+                    <h4 class="snakeLevel__title">level</h4>
+                    <button class="btn btn-primary mb-2">-</button>
+                    <input class="form-control" value="1" disabled>
+                    <button class="btn btn-primary mb-2">+</button>
+                </div>
+                <div class="snakeLength">
+                    <h4 class="snakeLength__title">length</h4>
+                    <input class="form-control" value="3" disabled>
+                </div>
+            </aside>
 
             <div class="buttonPanel col-12">
                 <button id="start" class="btn btn-success">start</button>
-                <button id="pause" class="btn btn-warning" disabled>pause</button>
+                <button id="pause" class="btn btn-secondary" disabled>pause</button>
             </div>
         </div>
     </div>
 </div>
-
 
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>

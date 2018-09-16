@@ -12,9 +12,21 @@ body {
   font-family: Arial;
 }
 
-.wrapper{
+.wrapper {
   max-width: 1320px;
   margin: auto;
+}
+
+@include keyframes(food) {
+  0% {
+    transform: scale(.9);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(.9);
+  }
 }
 
 /*===========================================
@@ -22,7 +34,7 @@ body {
  ===========================================*/
 
 /*===========================================
-   main page
+   game screen
  ===========================================*/
 
 .gameScreen {
@@ -46,15 +58,51 @@ body {
     outline: .1px solid $white_AliceBlue;
     outline-offset: -.1px;
     font-size: 7px;
-    &.snake{
+    &.snake {
       background-color: $red_snake;
-      &.snakeHead{
+      &.snakeHead {
         background-color: $red_snakeHead;
       }
     }
-    &.food{
+    &.food {
       background-color: #9cd220;
+      transform: scale(.9);
+      -webkit-animation: food 2s infinite;
+      animation: food 2s infinite;
     }
+  }
+}
+
+.buttonPanel {
+  margin-top: 1em;
+  text-align: center;
+}
+
+/*===========================================
+   aside
+ ===========================================*/
+
+.snakeLevel,
+.snakeLength {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  &__title {
+    width: 100%;
+    text-align: center;
+  }
+  button{
+    width: 30%;
+  }
+  input{
+    width: 30%;
+    text-align: center;
+  }
+}
+
+.snakeLength{
+  input{
+    width: 100%;
   }
 }
 

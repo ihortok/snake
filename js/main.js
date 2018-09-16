@@ -49,9 +49,15 @@ $(document).ready(function () {
     }
 
     function stop() {
+        clearInterval(snakeTimer);
+        $('#start').text('start').removeClass('btn-danger').addClass('btn-success');
+        $('#pause').prop('disabled', true).text('pause').removeClass('btn-warning').addClass('btn-secondary');
+        $('.snakeLength input').val(3);
         $('.snake').removeAttr('title');
         $('.gameScreen__cell').removeClass('snake snakeBody snakeHead');
         snake.length = 3;
+        pauseCheck = false;
+        startCheck = false;
         start();
     }
 
@@ -96,13 +102,7 @@ $(document).ready(function () {
 
         if ($('.snakeHead').hasClass('snakeBody')) {
             $('#gameOverModal').modal('show');
-            clearInterval(snakeTimer);
-            $('#start').text('start');
-            $('#start').removeClass('btn-danger').addClass('btn-success');
-            $('#pause').prop('disabled', true).text('pause');
             stop();
-            pauseCheck = false;
-            startCheck = false;
             return false;
         } else if (!$('.snakeHead').hasClass('food')) {
             snakeCoordinates.pop();
@@ -110,6 +110,7 @@ $(document).ready(function () {
             $('.gameScreen__cell[title=' + (snake.length - 1) + ']').removeAttr('title');
         } else {
             $('.gameScreen__cell[title="0"]').removeClass('food');
+            $('.snakeLength input').val(snakeCoordinates.length);
             foodAppearence();
         }
 
@@ -134,21 +135,15 @@ $(document).ready(function () {
         if (!startCheck) {
             snakeCoordinates = [];
             coordinates();
+            snake.direction = "right";
             snakeTimer = setInterval(function () {
                 snakeMove();
             }, 200);
-            $('#start').text('stop');
-            $('#start').removeClass('btn-success').addClass('btn-danger');
-            $('#pause').prop('disabled', false);
+            $('#start').text('stop').removeClass('btn-success').addClass('btn-danger');
+            $('#pause').prop('disabled', false).removeClass('btn-secondary').addClass('btn-warning');
             startCheck = true;
         } else {
-            clearInterval(snakeTimer);
-            $('#start').text('start');
-            $('#start').removeClass('btn-danger').addClass('btn-success');
-            $('#pause').prop('disabled', true).text('pause');
             stop();
-            pauseCheck = false;
-            startCheck = false;
         }
     });
 
