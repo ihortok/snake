@@ -27,21 +27,30 @@ $(document).ready(function () {
     var keyboard = [[37, 'left'], [38, 'up'], [39, 'right'], [40, 'down']];
     var edges = [[0, gameTableX, 'left'], [gameTableX, 0, 'right'], [0, gameTableY, 'up'], [gameTableY, 0, 'down']];
 
+    //for star button
+    var startCheck = false;
+
+    //for pause button
+    var pauseCheck = false;
+    var snakeTimer;
+
+    /*===========================================
+       functions
+    ===========================================*/
+
     function start() {
         for (var i = 0; i < snake.length; i++) {
             if (i > 0) {
-                $('.gameScreen__row:eq(' + Math.round(gameTableY / 2) + ') .gameScreen__cell:eq(' + (Math.round(gameTableX / 2) - i) + ')').addClass('snake').attr('title', i);
+                $('.gameScreen__row:eq(' + Math.round(gameTableY / 2) + ') .gameScreen__cell:eq(' + (Math.round(gameTableX / 2) - i) + ')').addClass('snake snakeBody').attr('title', i);
             } else {
                 $('.gameScreen__row:eq(' + Math.round(gameTableY / 2) + ') .gameScreen__cell:eq(' + (Math.round(gameTableX / 2) - i) + ')').addClass('snake snakeHead').attr('title', i);
             }
         }
     }
 
-    start();
-
     function stop() {
         $('.snake').removeAttr('title');
-        $('.gameScreen__cell').removeClass('snake snakeHead');
+        $('.gameScreen__cell').removeClass('snake snakeBody snakeHead');
         snake.length = 3;
         start();
     }
@@ -56,12 +65,6 @@ $(document).ready(function () {
         }
     }
 
-    coordinates();
-
-    /*===========================================
-       functions
-    ===========================================*/
-
     function snakeMove() {
 
         var edge = false;
@@ -70,15 +73,12 @@ $(document).ready(function () {
             if (i < 2) {
                 if (snake.direction == edges[i][2] && snakeCoordinates[0][0] == edges[i][0]) {
                     snakeCoordinates.unshift([edges[i][1], snakeCoordinates[0][1]]);
-                    //console.log(snakeCoordinates);
                     edge = true;
                     break;
                 }
             } else {
                 if (snake.direction == edges[i][2] && snakeCoordinates[0][1] == edges[i][0]) {
                     snakeCoordinates.unshift([snakeCoordinates[0][0], edges[i][1]]);
-                    //console.log(edges[i][1]);
-                    //console.log(snakeCoordinates);
                     edge = true;
                     break;
                 }
@@ -94,9 +94,19 @@ $(document).ready(function () {
             }
         }
 
-        if (!$('.snakeHead').hasClass('food')) {
+        if ($('.snakeHead').hasClass('snakeBody')) {
+            $('#gameOverModal').modal('show');
+            clearInterval(snakeTimer);
+            $('#start').text('start');
+            $('#start').removeClass('btn-danger').addClass('btn-success');
+            $('#pause').prop('disabled', true).text('pause');
+            stop();
+            pauseCheck = false;
+            startCheck = false;
+            return false;
+        } else if (!$('.snakeHead').hasClass('food')) {
             snakeCoordinates.pop();
-            $('.gameScreen__cell[title=' + (snake.length - 1) + ']').removeClass('snake');
+            $('.gameScreen__cell[title=' + (snake.length - 1) + ']').removeClass('snake snakeBody');
             $('.gameScreen__cell[title=' + (snake.length - 1) + ']').removeAttr('title');
         } else {
             $('.gameScreen__cell[title="0"]').removeClass('food');
@@ -108,7 +118,7 @@ $(document).ready(function () {
 
         for (var i = 0; i < snake.length; i++) {
             if (i > 0) {
-                $('.gameScreen__row:eq(' + snakeCoordinates[i][1] + ') .gameScreen__cell:eq(' + snakeCoordinates[i][0] + ')').addClass('snake').attr('title', i);
+                $('.gameScreen__row:eq(' + snakeCoordinates[i][1] + ') .gameScreen__cell:eq(' + snakeCoordinates[i][0] + ')').addClass('snake snakeBody').attr('title', i);
             } else {
                 $('.gameScreen__row:eq(' + snakeCoordinates[i][1] + ') .gameScreen__cell:eq(' + snakeCoordinates[i][0] + ')').addClass('snake snakeHead').attr('title', i);
             }
@@ -120,26 +130,21 @@ $(document).ready(function () {
         $('.gameScreen__row:eq(' + food[1] + ') .gameScreen__cell:eq(' + food[0] + ')').addClass('food');
     }
 
-    foodAppearence();
-
-    var startCheck = false;
-    var pauseCheck = false;
-
-    var snakeTimer;
-
     $('#start').click(function () {
         if (!startCheck) {
             snakeCoordinates = [];
             coordinates();
             snakeTimer = setInterval(function () {
                 snakeMove();
-            }, 100);
+            }, 200);
             $('#start').text('stop');
+            $('#start').removeClass('btn-success').addClass('btn-danger');
             $('#pause').prop('disabled', false);
             startCheck = true;
         } else {
             clearInterval(snakeTimer);
             $('#start').text('start');
+            $('#start').removeClass('btn-danger').addClass('btn-success');
             $('#pause').prop('disabled', true).text('pause');
             stop();
             pauseCheck = false;
@@ -155,7 +160,7 @@ $(document).ready(function () {
         } else {
             snakeTimer = setInterval(function () {
                 snakeMove();
-            }, 100);
+            }, 200);
             $('#pause').text('pause');
             pauseCheck = false;
         }
@@ -172,4 +177,12 @@ $(document).ready(function () {
             }
         }
     });
+
+    /*===========================================
+       launch
+    ===========================================*/
+
+    start();
+    coordinates();
+    foodAppearence();
 });
