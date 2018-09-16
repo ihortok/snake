@@ -173,6 +173,20 @@ $(document).ready(function () {
         }
     });
 
+    $('.snakeLevel button:eq(0)').click(function () {
+        var level = $('.snakeLevel input').val();
+        if (level > 1) {
+            $('.snakeLevel input').val(level - 1);
+        }
+    });
+
+    $('.snakeLevel button:eq(1)').click(function () {
+        var level = $('.snakeLevel input').val();
+        if (level < 10) {
+            $('.snakeLevel input').val(parseInt(level) + 1);
+        }
+    });
+
     /*===========================================
        launch
     ===========================================*/
