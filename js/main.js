@@ -16,7 +16,15 @@ $(document).ready(function () {
     var snake = {
         length: 3,
         direction: 'right',
-        speed: 500
+        speed: 300
+    };
+
+    var levelsObj = {
+        "1": 350,
+        "2": 275,
+        "3": 200,
+        "4": 125,
+        "5": 50
     };
 
     var gameTableX = $('.gameScreen__row:eq(0) .gameScreen__cell').length - 1;
@@ -59,6 +67,15 @@ $(document).ready(function () {
         pauseCheck = false;
         startCheck = false;
         start();
+    }
+
+    function setSpeed() {
+        var level = $('.snakeLevel input').val();
+        $.each(levelsObj, function (key, value) {
+            if(level == key){
+                snake.speed = value;
+            }
+        })
     }
 
     function coordinates() {
@@ -136,9 +153,10 @@ $(document).ready(function () {
             snakeCoordinates = [];
             coordinates();
             snake.direction = "right";
+            setSpeed();
             snakeTimer = setInterval(function () {
                 snakeMove();
-            }, 200);
+            }, snake.speed);
             $('#start').text('stop').removeClass('btn-success').addClass('btn-danger');
             $('#pause').prop('disabled', false).removeClass('btn-secondary').addClass('btn-warning');
             startCheck = true;
@@ -155,7 +173,7 @@ $(document).ready(function () {
         } else {
             snakeTimer = setInterval(function () {
                 snakeMove();
-            }, 200);
+            }, snake.speed);
             $('#pause').text('pause');
             pauseCheck = false;
         }
@@ -182,7 +200,7 @@ $(document).ready(function () {
 
     $('.snakeLevel button:eq(1)').click(function () {
         var level = $('.snakeLevel input').val();
-        if (level < 10) {
+        if (level < 5) {
             $('.snakeLevel input').val(parseInt(level) + 1);
         }
     });
