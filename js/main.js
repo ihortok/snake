@@ -14,7 +14,7 @@ $(document).ready(function () {
     }
 
     var snake = {
-        length: 3,
+        length: 60,
         direction: 'right',
         speed: 300
     };
@@ -63,6 +63,8 @@ $(document).ready(function () {
         $('.snakeLength input').val(3);
         $('.snake').removeAttr('title');
         $('.gameScreen__cell').removeClass('snake snakeBody snakeHead');
+        $('.snakeLevel button').removeAttr('disabled');
+        $('.snakeLevel input').val(1);
         snake.length = 3;
         pauseCheck = false;
         startCheck = false;
@@ -72,7 +74,7 @@ $(document).ready(function () {
     function setSpeed() {
         var level = $('.snakeLevel input').val();
         $.each(levelsObj, function (key, value) {
-            if(level == key){
+            if (level == key) {
                 snake.speed = value;
             }
         })
@@ -145,7 +147,11 @@ $(document).ready(function () {
 
     function foodAppearence() {
         var food = [Math.round(gameTableX * Math.random()), Math.round(gameTableY * Math.random())];
-        $('.gameScreen__row:eq(' + food[1] + ') .gameScreen__cell:eq(' + food[0] + ')').addClass('food');
+        if ($('.gameScreen__row:eq(' + food[1] + ') .gameScreen__cell:eq(' + food[0] + ')').hasClass('.snake ')) {
+            foodAppearence();
+        } else {
+            $('.gameScreen__row:eq(' + food[1] + ') .gameScreen__cell:eq(' + food[0] + ')').addClass('food');
+        }
     }
 
     $('#start').click(function () {
@@ -154,6 +160,7 @@ $(document).ready(function () {
             coordinates();
             snake.direction = "right";
             setSpeed();
+            $('.snakeLevel button').attr('disabled', 'disabled');
             snakeTimer = setInterval(function () {
                 snakeMove();
             }, snake.speed);
