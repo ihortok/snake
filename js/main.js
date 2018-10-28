@@ -14,16 +14,16 @@ $(document).ready(function () {
     }
 
     var snake = {
-        length: 60,
+        length: 3,
         direction: 'right',
         speed: 300
     };
 
     var levelsObj = {
-        "1": 350,
-        "2": 275,
-        "3": 200,
-        "4": 125,
+        "1": 250,
+        "2": 200,
+        "3": 150,
+        "4": 100,
         "5": 50
     };
 
@@ -131,6 +131,15 @@ $(document).ready(function () {
             $('.gameScreen__cell[title="0"]').removeClass('food');
             $('.snakeLength input').val(snakeCoordinates.length);
             foodAppearence();
+            var currentLevel = $('.snakeLevel input').val();
+            if(snake.length % 19 == 0 && currentLevel < 5){
+                $('.snakeLevel input').val(parseInt(currentLevel) + 1);
+                setSpeed();
+                clearInterval(snakeTimer);
+                snakeTimer = setInterval(function () {
+                    snakeMove();
+                }, snake.speed);
+            }
         }
 
         $('.gameScreen__cell[title="0"]').removeClass('snakeHead');
