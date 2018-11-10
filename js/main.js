@@ -42,6 +42,9 @@ $(document).ready(function () {
     var pauseCheck = false;
     var snakeTimer;
 
+    //block buttons after cklick
+    var btnBlock;
+
     /*===========================================
        functions
     ===========================================*/
@@ -132,7 +135,7 @@ $(document).ready(function () {
             $('.snakeLength input').val(snakeCoordinates.length);
             foodAppearence();
             var currentLevel = $('.snakeLevel input').val();
-            if(snake.length % 19 == 0 && currentLevel < 5){
+            if (snake.length % 19 == 0 && currentLevel < 5) {
                 $('.snakeLevel input').val(parseInt(currentLevel) + 1);
                 setSpeed();
                 clearInterval(snakeTimer);
@@ -152,6 +155,9 @@ $(document).ready(function () {
                 $('.gameScreen__row:eq(' + snakeCoordinates[i][1] + ') .gameScreen__cell:eq(' + snakeCoordinates[i][0] + ')').addClass('snake snakeHead').attr('title', i);
             }
         }
+
+        btnBlock = false;
+
     }
 
     function foodAppearence() {
@@ -196,15 +202,21 @@ $(document).ready(function () {
     });
 
     $(document).keydown(function (e) {
-        if ((e.keyCode == keyboard[0][0] && snake.direction == keyboard[2][1]) || (e.keyCode == keyboard[2][0] && snake.direction == keyboard[0][1]) || (e.keyCode == keyboard[1][0] && snake.direction == keyboard[3][1]) || (e.keyCode == keyboard[3][0] && snake.direction == keyboard[1][1])) {
-            return;
-        }
 
-        for (var i = 0; i < 4; i++) {
-            if (e.keyCode == keyboard[i][0]) {
-                snake.direction = keyboard[i][1];
+        if (btnBlock == false) {
+            if ((e.keyCode == keyboard[0][0] && snake.direction == keyboard[2][1]) || (e.keyCode == keyboard[2][0] && snake.direction == keyboard[0][1]) || (e.keyCode == keyboard[1][0] && snake.direction == keyboard[3][1]) || (e.keyCode == keyboard[3][0] && snake.direction == keyboard[1][1])) {
+                return;
+            }
+
+            for (var i = 0; i < 4; i++) {
+                if (e.keyCode == keyboard[i][0]) {
+                    snake.direction = keyboard[i][1];
+                }
             }
         }
+
+        btnBlock = true;
+
     });
 
     $('.snakeLevel button:eq(0)').click(function () {
