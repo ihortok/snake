@@ -162,7 +162,7 @@ $(document).ready(function () {
 
     function foodAppearence() {
         var food = [Math.round(gameTableX * Math.random()), Math.round(gameTableY * Math.random())];
-        if ($('.gameScreen__row:eq(' + food[1] + ') .gameScreen__cell:eq(' + food[0] + ')').hasClass('.snake ')) {
+        if ($('.gameScreen__row:eq(' + food[1] + ') .gameScreen__cell:eq(' + food[0] + ')').hasClass('snake')) {
             foodAppearence();
         } else {
             $('.gameScreen__row:eq(' + food[1] + ') .gameScreen__cell:eq(' + food[0] + ')').addClass('food');
