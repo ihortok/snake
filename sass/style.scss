@@ -79,6 +79,26 @@ body {
   text-align: center;
 }
 
+.colorSelect_block{
+  ul{
+    @include flex_display;
+    @include flex_wrap();
+    margin: -5px;
+    li{
+      width: 20px;
+      height: 20px;
+      margin: 5px;
+      cursor: pointer;
+      @include animate();
+      @include rounded(4px);
+      @include box-shadow(0,0,4px,1px, $dimGrey_7);
+      &.selected{
+        @include scale(1.3);
+      }
+    }
+  }
+}
+
 /*===========================================
    aside
  ===========================================*/

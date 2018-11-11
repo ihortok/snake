@@ -233,6 +233,29 @@ $(document).ready(function () {
         }
     });
 
+    function colorSelect(color) {
+        $(color).parents('ul').children('li').removeClass('selected');
+        $(color).addClass('selected');
+    }
+
+    $('.colorSelect_block ul li').click(function () {
+        if ($(this).parents('.colorSelect_block').hasClass('snakeBody_color')) {
+            var liIndex = $('.snakeBody_color li').index(this);
+            if ($('.field_color li:eq(' + liIndex + ')').hasClass('selected')) {
+                $('#colorWarming').modal('show');
+            } else {
+                colorSelect(this);
+            }
+        } else {
+            var liIndex = $('.field_color li').index(this);
+            if ($('.snakeBody_color li:eq(' + liIndex + ')').hasClass('selected')) {
+                $('#colorWarming').modal('show');
+            } else {
+                colorSelect(this);
+            }
+        }
+    });
+
     /*===========================================
        launch
     ===========================================*/
